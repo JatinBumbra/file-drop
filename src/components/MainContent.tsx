@@ -42,7 +42,7 @@ const MainContent = () => {
         <span>Upload Files</span>
       </Button>
 
-      <FileUploadModal />
+      {/* <FileUploadModal /> */}
     </div>
   );
 };

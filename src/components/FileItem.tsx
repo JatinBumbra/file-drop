@@ -7,7 +7,7 @@ const FileItem = () => {
         <p className='font-medium text-lg'>resume.pdf</p>
         <p className='text-sm text-gray-400'>12.04 MB | September 24, 2022</p>
       </div>
-      <div className='px-6 flex items-center justify-center cursor-pointer transition-all hover:bg-blue-500 hover:text-white'>
+      <div className='px-6 flex items-center justify-center cursor-pointer transition-all hover:bg-blue-500 hover:text-white active:bg-blue-700'>
         <HiOutlineDownload className='text-2xl font-bold' />
       </div>
     </div>
