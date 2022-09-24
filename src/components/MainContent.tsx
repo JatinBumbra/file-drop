@@ -21,12 +21,19 @@ const MainContent = () => {
 
       <TabSelect />
 
-      <div className='transition-all flex-1 overflow-y-scroll my-3'>
-        {Array(10)
-          .fill(true)
-          .map((_, i) => (
-            <FileItem key={i} />
-          ))}
+      <div className='transition-all flex-1 overflow-y-scroll my-3 pr-3'>
+        {false ? (
+          Array(10)
+            .fill(true)
+            .map((_, i) => <FileItem key={i} />)
+        ) : (
+          <div className='p-5 bg-gray-100 rounded-lg'>
+            <p className='text-2xl font-medium mb-1'>No Uploads Yet</p>
+            <p className='text-gray-600'>
+              Click the button below to start uploading
+            </p>
+          </div>
+        )}
       </div>
 
       <Button>
