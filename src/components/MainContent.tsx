@@ -3,8 +3,9 @@ import Button from './Button';
 import FileItem from './FileItem';
 import Search from './Search';
 import TabSelect from './TabSelect';
+import FileUploadModal from './FileUploadModal';
 // Icons
-import { HiUserCircle, HiArrowUp } from 'react-icons/hi';
+import { HiUserCircle, HiOutlineUpload } from 'react-icons/hi';
 
 const MainContent = () => {
   return (
@@ -22,7 +23,7 @@ const MainContent = () => {
       <TabSelect />
 
       <div className='transition-all flex-1 overflow-y-scroll my-3 pr-3'>
-        {false ? (
+        {true ? (
           Array(10)
             .fill(true)
             .map((_, i) => <FileItem key={i} />)
@@ -37,9 +38,11 @@ const MainContent = () => {
       </div>
 
       <Button>
-        <HiArrowUp className='text-xl' />
+        <HiOutlineUpload className='text-xl' />
         <span>Upload Files</span>
       </Button>
+
+      <FileUploadModal />
     </div>
   );
 };

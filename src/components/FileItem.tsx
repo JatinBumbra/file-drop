@@ -1,4 +1,4 @@
-import { HiDownload } from 'react-icons/hi';
+import { HiOutlineDownload } from 'react-icons/hi';
 
 const FileItem = () => {
   return (
@@ -8,7 +8,7 @@ const FileItem = () => {
         <p className='text-sm text-gray-400'>12.04 MB | September 24, 2022</p>
       </div>
       <div className='px-6 flex items-center justify-center cursor-pointer transition-all hover:bg-blue-500 hover:text-white'>
-        <HiDownload className='text-2xl font-bold' />
+        <HiOutlineDownload className='text-2xl font-bold' />
       </div>
     </div>
   );
