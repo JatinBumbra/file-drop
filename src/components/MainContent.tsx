@@ -1,20 +1,25 @@
+import { useState } from 'react';
 // Components
 import Button from './Button';
 import FileItem from './FileItem';
 import Search from './Search';
 import TabSelect from './TabSelect';
 import FileUploadModal from './FileUploadModal';
+import UploadProgress from './UploadProgress';
 // Icons
 import { HiUserCircle, HiOutlineUpload } from 'react-icons/hi';
 
 const MainContent = () => {
+  const [selectFileModalOpen, setSelectFileModalOpen] =
+    useState<boolean>(false);
+
   return (
-    <div className='p-4 flex flex-col flex-1 px-12'>
+    <div className='p-4 flex flex-col flex-1 px-10'>
       <div className='flex items-center space-x-12'>
         <Search />
-        <div className='basis-32 flex items-center space-x-2 text-gray-500'>
-          <HiUserCircle className='text-4xl' />
-          <p>Hi User</p>
+        <div className='basis-32 flex items-center space-x-2 text-gray-800'>
+          <HiUserCircle className='text-4xl text-gray-500' />
+          <p className='font-medium'>Hi User</p>
         </div>
       </div>
 
@@ -30,19 +35,30 @@ const MainContent = () => {
         ) : (
           <div className='p-5 bg-gray-100 rounded-lg'>
             <p className='text-2xl font-medium mb-1'>No Uploads Yet</p>
-            <p className='text-gray-600'>
+            <p className='text-gray-600 mb-4'>
               Click the button below to start uploading
             </p>
+            <Button>
+              <HiOutlineUpload className='text-xl' />
+              <span>Upload Files</span>
+            </Button>
           </div>
         )}
       </div>
 
-      <Button>
-        <HiOutlineUpload className='text-xl' />
-        <span>Upload Files</span>
-      </Button>
+      <div className='flex justify-center'>
+        <Button onClick={() => setSelectFileModalOpen(true)}>
+          <HiOutlineUpload className='text-xl' />
+          <span>Upload Files</span>
+        </Button>
+      </div>
 
-      {/* <FileUploadModal /> */}
+      <UploadProgress />
+
+      <FileUploadModal
+        open={selectFileModalOpen}
+        setOpen={setSelectFileModalOpen}
+      />
     </div>
   );
 };

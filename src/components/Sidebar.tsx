@@ -4,7 +4,7 @@ const menuItems = ['Files', 'Archived', 'Deleted', 'Shared'];
 
 const Sidebar = () => {
   return (
-    <div className='basis-48 bg-gray-100 h-full'>
+    <div className='basis-48 bg-gray-100 border-r border-gray-200 h-full'>
       <div className='px-6 py-5'>
         <img src={Logo} alt='logo' />
       </div>

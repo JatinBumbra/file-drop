@@ -1,4 +1,10 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 // Components
 import Button from './Button';
 // Icons
@@ -6,7 +12,13 @@ import { HiOutlineUpload, HiOutlineXCircle, HiOutlineX } from 'react-icons/hi';
 // Misc
 import { formatFileSize } from '../utils';
 
-const FileUploadModal = () => {
+const FileUploadModal = ({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}) => {
   const [files, setFiles] = useState<File[]>([]);
   const [totalSelectedSize, setTotalSelectedSize] = useState<number>(0);
 
@@ -26,14 +38,31 @@ const FileUploadModal = () => {
     ]);
   };
 
-  return (
+  const handleUpload = () => {
+    handleClose();
+  };
+
+  const handleClose = () => {
+    setFiles([]);
+    setOpen(false);
+  };
+
+  return open ? (
     <>
-      <div className='bg-black bg-opacity-60 fixed top-0 left-0 h-screen w-screen'></div>
-      <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-2xl w-3/5 h-3/4'>
+      <div
+        className='bg-black bg-opacity-60 fixed top-0 left-0 h-screen w-screen'
+        onClick={handleClose}
+      ></div>
+      <div
+        className={`absolute top-1/2 left-1/2 transition-all -translate-x-1/2 -translate-y-1/2 shadow-2xl w-3/5 h-3/4`}
+      >
         <div className='flex flex-col p-5 bg-white h-full rounded-xl overflow-hidden'>
           <div className='flex items-center justify-between text-xl'>
             <p className='uppercase font-bold'>Select Files</p>
-            <HiOutlineX className='cursor-pointer text-gray-500 transition-all hover:text-gray-900' />
+            <HiOutlineX
+              className='cursor-pointer text-gray-500 transition-all hover:text-gray-900'
+              onClick={handleClose}
+            />
           </div>
 
           <div className='flex space-x-5 h-full mt-3 mb-5 overflow-hidden'>
@@ -82,14 +111,14 @@ const FileUploadModal = () => {
               </div>
             </div>
           </div>
-          <Button disabled={!files.length}>
+          <Button disabled={!files.length} onClick={handleUpload}>
             <HiOutlineUpload className='text-xl' />
             <span>Start Upload</span>
           </Button>
         </div>
       </div>
     </>
-  );
+  ) : null;
 };
 
 export default FileUploadModal;
