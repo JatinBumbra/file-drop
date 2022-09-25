@@ -1,5 +1,14 @@
 export interface IAppContext {
   files: FilesState;
+  uploadState: UploadState;
+  uploadFiles: (files: File[]) => Promise<void>;
+  closeUploadDialog: () => void;
+}
+
+export interface UploadState {
+  showProgressDialog: boolean;
+  isUploading: boolean;
+  files: (FileItem & { uploaded: number })[];
 }
 
 export interface FilesState {
@@ -9,7 +18,7 @@ export interface FilesState {
 
 export interface FileItem {
   name: string;
-  uploadDate: string;
   size: number;
+  uploadDate?: string;
   downloadUrl?: string;
 }

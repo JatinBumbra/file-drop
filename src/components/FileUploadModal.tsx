@@ -11,6 +11,7 @@ import Button from './Button';
 import { HiOutlineUpload, HiOutlineXCircle, HiOutlineX } from 'react-icons/hi';
 // Misc
 import { formatFileSize } from '../utils';
+import { useAppContext } from '../context';
 
 const FileUploadModal = ({
   open,
@@ -19,6 +20,8 @@ const FileUploadModal = ({
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
+  const { uploadFiles } = useAppContext();
+
   const [files, setFiles] = useState<File[]>([]);
   const [totalSelectedSize, setTotalSelectedSize] = useState<number>(0);
 
@@ -26,7 +29,7 @@ const FileUploadModal = ({
     setTotalSelectedSize(files.reduce((acc, file) => acc + file.size, 0));
   }, [files]);
 
-  const handleFileInput = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFileInput = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length)
       setFiles((prev) => [...e.target.files!, ...prev]);
   };
@@ -40,6 +43,7 @@ const FileUploadModal = ({
 
   const handleUpload = () => {
     handleClose();
+    uploadFiles(files);
   };
 
   const handleClose = () => {
@@ -49,10 +53,7 @@ const FileUploadModal = ({
 
   return open ? (
     <>
-      <div
-        className='bg-black bg-opacity-60 fixed top-0 left-0 h-screen w-screen'
-        onClick={handleClose}
-      ></div>
+      <div className='bg-black bg-opacity-60 fixed top-0 left-0 h-screen w-screen'></div>
       <div
         className={`absolute top-1/2 left-1/2 transition-all -translate-x-1/2 -translate-y-1/2 shadow-2xl w-3/5 h-3/4`}
       >

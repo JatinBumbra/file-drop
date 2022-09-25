@@ -39,7 +39,7 @@ const MainContent = () => {
             <p className='text-lg font-medium'>Loading Files...</p>
           </div>
         ) : files.data.length ? (
-          files.data.map((_, i) => <FileItem key={i} />)
+          files.data.map((_, i) => <FileItem data={_} key={i} />)
         ) : (
           <div className='p-5 bg-gray-100 rounded-lg'>
             <p className='text-2xl font-medium mb-1'>No Uploads Yet</p>
