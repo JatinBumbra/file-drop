@@ -7,9 +7,14 @@ import TabSelect from './TabSelect';
 import FileUploadModal from './FileUploadModal';
 import UploadProgress from './UploadProgress';
 // Icons
+import Spinner from '../assets/spinner.svg';
 import { HiUserCircle, HiOutlineUpload } from 'react-icons/hi';
+// Context
+import { useAppContext } from '../context';
 
 const MainContent = () => {
+  const { files } = useAppContext();
+
   const [selectFileModalOpen, setSelectFileModalOpen] =
     useState<boolean>(false);
 
@@ -28,17 +33,20 @@ const MainContent = () => {
       <TabSelect />
 
       <div className='transition-all flex-1 overflow-y-scroll my-3 pr-3'>
-        {true ? (
-          Array(10)
-            .fill(true)
-            .map((_, i) => <FileItem key={i} />)
+        {files.loading ? (
+          <div className='flex items-center'>
+            <img src={Spinner} alt='loading' className='h-16 w-16' />
+            <p className='text-lg font-medium'>Loading Files...</p>
+          </div>
+        ) : files.data.length ? (
+          files.data.map((_, i) => <FileItem key={i} />)
         ) : (
           <div className='p-5 bg-gray-100 rounded-lg'>
             <p className='text-2xl font-medium mb-1'>No Uploads Yet</p>
             <p className='text-gray-600 mb-4'>
               Click the button below to start uploading
             </p>
-            <Button>
+            <Button onClick={() => setSelectFileModalOpen(true)}>
               <HiOutlineUpload className='text-xl' />
               <span>Upload Files</span>
             </Button>
