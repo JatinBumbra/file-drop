@@ -15,13 +15,14 @@ import { useAppContext } from '../context';
 const MainContent = () => {
   const { files } = useAppContext();
 
+  const [search, setSearch] = useState<string>('');
   const [selectFileModalOpen, setSelectFileModalOpen] =
     useState<boolean>(false);
 
   return (
     <div className='p-4 flex flex-col flex-1 px-10'>
       <div className='flex items-center space-x-12'>
-        <Search />
+        <Search value={search} onChange={(e) => setSearch(e.target.value)} />
         <div className='basis-32 flex items-center space-x-2 text-gray-800'>
           <HiUserCircle className='text-4xl text-gray-500' />
           <p className='font-medium'>Hi User</p>
@@ -38,9 +39,7 @@ const MainContent = () => {
             <img src={Spinner} alt='loading' className='h-16 w-16' />
             <p className='text-lg font-medium'>Loading Files...</p>
           </div>
-        ) : files.data.length ? (
-          files.data.map((_, i) => <FileItem data={_} key={i} />)
-        ) : (
+        ) : !files.data.length ? (
           <div className='p-5 bg-gray-100 rounded-lg'>
             <p className='text-2xl font-medium mb-1'>No Uploads Yet</p>
             <p className='text-gray-600 mb-4'>
@@ -51,6 +50,18 @@ const MainContent = () => {
               <span>Upload Files</span>
             </Button>
           </div>
+        ) : !files.data.filter((file) =>
+            file.name.toLowerCase().includes(search.trim().toLowerCase())
+          ).length ? (
+          <p className='text-lg'>
+            No files found containing "{search}" in their name.
+          </p>
+        ) : (
+          files.data
+            .filter((file) =>
+              file.name.toLowerCase().includes(search.trim().toLowerCase())
+            )
+            .map((file, i) => <FileItem data={file} key={i} />)
         )}
       </div>
 
