@@ -34,7 +34,7 @@ const FileUploadModal = ({
       setFiles((prev) => [...e.target.files!, ...prev]);
   };
 
-  const handleRemove = (e: ChangeEvent<HTMLElement>) => {
+  const handleRemove = (e: any) => {
     setFiles((prev) => [
       ...prev.slice(0, Number(e.target.id)),
       ...prev.slice(Number(e.target.id) + 1),
