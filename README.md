@@ -6,7 +6,7 @@
 
 
 ## Live Preview
-Live Preview Link - 
+Live Preview Link - https://filedrop.netlify.app/
 
 
 ## About
